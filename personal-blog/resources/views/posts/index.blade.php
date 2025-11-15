@@ -8,6 +8,17 @@
     <a href="{{ route('posts.create') }}" class="btn btn-primary">+ مقال جديد</a>
 </div>
 
+<form action="{{ route('posts.index') }}" method="GET" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control"
+               placeholder="ابحث في المقالات..." value="{{ request('search') }}">
+        <button class="btn btn-primary" type="submit">🔍 بحث</button>
+        @if(request('search'))
+            <a href="{{ route('posts.index') }}" class="btn btn-secondary">إلغاء</a>
+        @endif
+    </div>
+</form>
+
 @if($posts->count() > 0)
     <div class="row">
         @foreach($posts as $post)
