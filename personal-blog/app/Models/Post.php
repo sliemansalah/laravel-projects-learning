@@ -52,6 +52,16 @@ class Post extends Model
         return $this->tags->pluck('name')->implode(', ');
     }
 
+    public function relatedPosts($limit = 3)
+{
+    return Post::where('id', '!=', $this->id)
+        ->where('category_id', $this->category_id)
+        ->where('published', true)
+        ->latest()
+        ->take($limit)
+        ->get();
+}
+
 
 
 

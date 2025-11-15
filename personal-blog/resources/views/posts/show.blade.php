@@ -20,17 +20,20 @@
                     <span class="badge {{ $post->published ? 'bg-success' : 'bg-secondary' }}">
                         {{ $post->published ? 'منشور' : 'مسودة' }}
                     </span>
-                     @if($post->tags->count() > 0)
-                        <div class="mb-3">
-                            <strong>الوسوم:</strong>
-                            @foreach($post->tags as $tag)
-                                <span class="badge bg-secondary">{{ $tag->name }}</span>
-                            @endforeach
-                        </div>
-                    @endif
                     <small class="text-muted">👁️ {{ $post->views }} مشاهدة</small>
                     <small class="text-muted">| {{ $post->created_at->format('Y-m-d') }}</small>
                 </div>
+
+                @if($post->tags->count() > 0)
+                <div class="mb-3">
+                    <strong>الوسوم:</strong>
+                    @foreach($post->tags as $tag)
+                        <span class="badge bg-secondary">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
+                @endif
+
+                <hr>
 
                 <div class="content mt-4">
                     {!! $post->content !!}
@@ -39,8 +42,7 @@
 
             <div class="card-footer">
                 <a href="{{ route('posts.index') }}" class="btn btn-secondary">رجوع</a>
-                    <a href="{{ route('posts.archive') }}" class="btn btn-info">📅 الأرشيف</a>
-
+                <a href="{{ route('posts.archive') }}" class="btn btn-info">📅 الأرشيف</a>
                 <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">تعديل</a>
                 <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
                     @csrf
@@ -50,6 +52,46 @@
                 </form>
             </div>
         </div>
+
+        {{-- المقالات ذات الصلة --}}
+        @if($post->relatedPosts()->count() > 0)
+        <div class="card mt-4 related-posts">
+            <div class="card-header">
+                <h5>📚 مقالات ذات صلة</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach($post->relatedPosts() as $related)
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            @if($related->image)
+                            <img src="{{ asset('storage/' . $related->image) }}"
+                                 class="card-img-top"
+                                 alt="{{ $related->title }}"
+                                 style="height: 150px; object-fit: cover;">
+                            @endif
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <a href="{{ route('posts.show', $related) }}" class="text-decoration-none">
+                                        {{ Str::limit($related->title, 50) }}
+                                    </a>
+                                </h6>
+                                <small class="text-muted">
+                                    👁️ {{ $related->views }} | {{ $related->created_at->diffForHumans() }}
+                                </small>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="{{ route('posts.show', $related) }}" class="btn btn-sm btn-primary w-100">
+                                    قراءة المزيد
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

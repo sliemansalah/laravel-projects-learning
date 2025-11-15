@@ -50,3 +50,24 @@
     @stack('scripts')
 </body>
 </html>
+
+
+<style>
+.related-posts .card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.related-posts .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.related-posts .card-title a {
+    color: #333;
+    transition: color 0.3s;
+}
+
+.related-posts .card-title a:hover {
+    color: #007bff;
+}
+</style>
