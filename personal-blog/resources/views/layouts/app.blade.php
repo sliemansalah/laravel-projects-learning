@@ -43,5 +43,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/j5nm2shixajllst64xg217wk3us82u13qh5op8h2sfj69z4g/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    @stack('scripts')
 </body>
 </html>

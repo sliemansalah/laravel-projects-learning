@@ -47,7 +47,6 @@
                         @enderror
                     </div>
 
-
                     <div class="mb-3">
                         <label class="form-label">صورة المقال</label>
                         <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
@@ -73,3 +72,48 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        tinymce.init({
+            selector: 'textarea[name="content"]',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            language: 'ar',
+            directionality: 'rtl',
+            height: 400,
+            menubar: false,
+            branding: false,
+            setup: function(editor) {
+                // إزالة خاصية required من textarea عند تحميل المحرر
+                editor.on('init', function() {
+                    var textarea = document.querySelector('textarea[name="content"]');
+                    if (textarea) {
+                        textarea.removeAttribute('required');
+                    }
+                });
+
+                // التحقق من المحتوى عند إرسال النموذج
+                editor.on('submit', function() {
+                    editor.save(); // حفظ المحتوى في textarea
+                });
+            }
+        });
+
+        // التحقق اليدوي عند إرسال النموذج
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var content = tinymce.get('mce_0') ? tinymce.get('mce_0').getContent() : '';
+
+            if (!content || content.trim() === '') {
+                e.preventDefault();
+                alert('يرجى كتابة محتوى المقال');
+                return false;
+            }
+
+            // تحديث textarea قبل الإرسال
+            tinymce.triggerSave();
+        });
+    });
+</script>
+@endpush

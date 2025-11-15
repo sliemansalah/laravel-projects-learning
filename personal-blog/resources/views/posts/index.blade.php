@@ -33,7 +33,7 @@
                 @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $post->title }}</h5>
-                    <p class="card-text">{{ Str::limit($post->content, 150) }}</p>
+                    <p class="card-text">{!! Str::limit(strip_tags($post->content), 150) !!}</p>
                     <p class="text-muted small">
                         <span class="badge {{ $post->published ? 'bg-success' : 'bg-secondary' }}">
                             {{ $post->published ? 'منشور' : 'مسودة' }}
