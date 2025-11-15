@@ -17,3 +17,5 @@ Route::get('archive/{year}/{month}', [PostController::class, 'byDate'])->name('p
 
 Route::post('posts/{post}/bookmark', [PostController::class, 'toggleBookmark'])->name('posts.bookmark');
 Route::get('bookmarks', [PostController::class, 'bookmarks'])->name('posts.bookmarks');
+
+Route::get('statistics', [PostController::class, 'statistics'])->name('posts.statistics');

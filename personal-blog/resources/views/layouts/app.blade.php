@@ -37,6 +37,9 @@
                             @endif
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('posts.statistics') }}">📊 الإحصائيات</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -102,5 +105,60 @@
 
 .btn-warning.saved {
     animation: heartBeat 0.6s;
+}
+
+/* تحسين بطاقات الإحصائيات */
+.card.text-white .display-4,
+.card.text-white .display-6 {
+    font-weight: bold;
+}
+
+.card.text-white {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.card.text-white:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* تحسين Progress Bars */
+.progress {
+    border-radius: 10px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* تحسين القوائم */
+.list-group-item {
+    border-left: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.list-group-item:hover {
+    border-left-color: #007bff;
+    background-color: #f8f9fa;
+    transform: translateX(-5px);
+}
+
+/* Animation للأرقام */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.display-4, .display-6 {
+    animation: countUp 0.6s ease-out;
 }
 </style>

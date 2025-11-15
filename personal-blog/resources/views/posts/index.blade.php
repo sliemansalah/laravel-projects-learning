@@ -5,6 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>جميع المقالات</h1>
+    <a href="{{ route('posts.statistics') }}" class="btn btn-outline-primary">📊 الإحصائيات</a>
     <a href="{{ route('posts.archive') }}" class="btn btn-info">📅 الأرشيف</a>
     <a href="{{ route('posts.create') }}" class="btn btn-primary">+ مقال جديد</a>
 </div>

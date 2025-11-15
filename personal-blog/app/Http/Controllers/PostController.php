@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -177,5 +178,27 @@ public function bookmarks()
 
     return view('posts.bookmarks', compact('posts'));
 }
+
+public function statistics()
+{
+    $stats = [
+        'total_posts' => Post::count(),
+        'published_posts' => Post::where('published', true)->count(),
+        'draft_posts' => Post::where('published', false)->count(),
+        'total_views' => Post::sum('views'),
+        'total_comments' => Comment::count(),
+        'approved_comments' => Comment::where('approved', true)->count(),
+        'pending_comments' => Comment::where('approved', false)->count(),
+        'total_categories' => Category::count(),
+        'total_tags' => Tag::count(),
+        'most_viewed' => Post::orderByDesc('views')->take(5)->get(),
+        'recent_posts' => Post::latest()->take(5)->get(),
+        'posts_this_month' => Post::whereMonth('created_at', now()->month)->count(),
+        'views_this_month' => Post::whereMonth('created_at', now()->month)->sum('views'),
+    ];
+
+    return view('posts.statistics', compact('stats'));
+}
+
 
 }
