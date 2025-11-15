@@ -13,10 +13,17 @@ class Post extends Model
         'title',
         'content',
         'image',
-        'published'
+        'published',
+        'category_id'
     ];
 
     protected $casts = [
         'published' => 'boolean',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

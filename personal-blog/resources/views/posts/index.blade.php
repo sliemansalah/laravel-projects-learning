@@ -24,6 +24,9 @@
         @foreach($posts as $post)
         <div class="col-md-6 mb-4">
             <div class="card h-100">
+                @if($post->category)
+                    <span class="badge bg-info">{{ $post->category->name }}</span>
+                @endif
                 @if($post->image)
                 <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}" style="height: 200px; object-fit: cover;">
                 @endif

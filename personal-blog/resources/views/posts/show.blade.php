@@ -6,6 +6,9 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
+            @if($post->category)
+                <span class="badge bg-info">{{ $post->category->name }}</span>
+            @endif
             @if($post->image)
             <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
             @endif

@@ -32,6 +32,23 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">الفئة</label>
+                        <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
+                            <option value="">-- اختر الفئة --</option>
+                            @foreach(\App\Models\Category::all() as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', $post->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                    <div class="mb-3">
                         <label class="form-label">صورة المقال</label>
                         <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
                                accept="image/*">
