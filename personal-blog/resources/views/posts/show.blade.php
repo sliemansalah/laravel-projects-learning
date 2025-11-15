@@ -9,6 +9,9 @@
             @if($post->category)
                 <span class="badge bg-info">{{ $post->category->name }}</span>
             @endif
+            <p class="text-muted">
+                👁️ {{ $post->views }} مشاهدة
+            </p>
             @if($post->image)
             <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
             @endif

@@ -14,7 +14,8 @@ class Post extends Model
         'content',
         'image',
         'published',
-        'category_id'
+        'category_id',
+        'views'
     ];
 
     protected $casts = [
@@ -25,5 +26,11 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function incrementViews()
+    {
+        $this->increment('views');
+    }
+
 
 }

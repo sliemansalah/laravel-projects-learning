@@ -25,8 +25,9 @@
         <div class="col-md-6 mb-4">
             <div class="card h-100">
                 @if($post->category)
-                    <span class="badge bg-info">{{ $post->category->name }}</span>
+                <span class="badge bg-info">{{ $post->category->name }}</span>
                 @endif
+                <small>👁️ {{ $post->views }}</small>
                 @if($post->image)
                 <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}" style="height: 200px; object-fit: cover;">
                 @endif

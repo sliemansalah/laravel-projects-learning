@@ -56,7 +56,7 @@ class PostController extends Controller
     // عرض مقال واحد
     public function show(Post $post)
     {
-        $post->load('category');
+        $post->incrementViews();
         return view('posts.show', compact('post'));
     }
 
