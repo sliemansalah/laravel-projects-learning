@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,28 +32,44 @@ class PostController extends Controller
     }
 
     // حفظ المقال الجديد
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'image' => 'nullable|image|max:2048',
-            'published' => 'boolean',
-            'category_id' => 'nullable|exists:categories,id'
-        ]);
+  public function store(Request $request)
+{
+    // 1. التحقق من البيانات
+    $validated = $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+        'image' => 'nullable|image|max:2048',
+        'published' => 'boolean',
+        'category_id' => 'nullable|exists:categories,id',
+        'tags' => 'nullable|string'
+    ]);
 
-        $validated['published'] = $request->has('published');
-
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('posts', 'public');
-        }
-
-        Post::create($validated);
-
-        return redirect()->route('posts.index')
-            ->with('success', 'تم إضافة المقال بنجاح!');
+    // 2. معالجة الصورة إذا وجدت
+    if ($request->hasFile('image')) {
+        $validated['image'] = $request->file('image')->store('posts', 'public');
     }
 
+    // 3. معالجة checkbox المنشور
+    $validated['published'] = $request->has('published');
+
+    // 4. إنشاء المقال (الآن $post معرّف)
+    $post = Post::create([
+        'title' => $validated['title'],
+        'content' => $validated['content'],
+        'image' => $validated['image'] ?? null,
+        'published' => $validated['published'],
+        'category_id' => $validated['category_id'] ?? null,
+    ]);
+
+    // 5. ربط الوسوم بعد إنشاء المقال
+    if ($request->filled('tags')) {
+        $tagIds = Tag::createFromString($request->tags);
+        $post->tags()->attach($tagIds);
+    }
+
+    // 6. الرجوع مع رسالة نجاح
+    return redirect()->route('posts.index')->with('success', 'تم إضافة المقال بنجاح');
+}
     // عرض مقال واحد
     public function show(Post $post)
     {
@@ -75,7 +92,9 @@ class PostController extends Controller
             'content' => 'required',
             'image' => 'nullable|image|max:2048',
             'published' => 'boolean',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+                    'tags' => 'nullable|string'
+
         ]);
 
         $validated['published'] = $request->has('published');
@@ -85,6 +104,13 @@ class PostController extends Controller
         }
 
         $post->update($validated);
+         // تحديث الوسوم
+    if ($request->has('tags')) {
+        $tagIds = Tag::createFromString($request->tags);
+        $post->tags()->sync($tagIds);
+    } else {
+        $post->tags()->detach();
+    }
 
         return redirect()->route('posts.index')
             ->with('success', 'تم تحديث المقال بنجاح!');

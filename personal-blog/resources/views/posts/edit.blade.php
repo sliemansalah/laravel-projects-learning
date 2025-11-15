@@ -74,6 +74,16 @@
                                id="published" {{ old('published', $post->published) ? 'checked' : '' }}>
                         <label class="form-check-label" for="published">نشر المقال</label>
                     </div>
+                           <div class="mb-3">
+                        <label class="form-label">الوسوم (افصل بينها بفاصلة)</label>
+                        <input type="text" name="tags" class="form-control @error('tags') is-invalid @enderror"
+                            value="{{ old('tags', $post->tags_string ?? '') }}"
+                            placeholder="مثال: برمجة, لارافيل, php">
+                        <small class="text-muted">افصل بين الوسوم بفاصلة (,)</small>
+                        @error('tags')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">تحديث المقال</button>

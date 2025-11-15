@@ -42,6 +42,17 @@ class Post extends Model
         return $this->hasMany(Comment::class)->where('approved', true);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function getTagsStringAttribute()
+    {
+        return $this->tags->pluck('name')->implode(', ');
+    }
+
+
 
 
 }

@@ -20,6 +20,14 @@
                     <span class="badge {{ $post->published ? 'bg-success' : 'bg-secondary' }}">
                         {{ $post->published ? 'منشور' : 'مسودة' }}
                     </span>
+                     @if($post->tags->count() > 0)
+                        <div class="mb-3">
+                            <strong>الوسوم:</strong>
+                            @foreach($post->tags as $tag)
+                                <span class="badge bg-secondary">{{ $tag->name }}</span>
+                            @endforeach
+                        </div>
+                    @endif
                     <small class="text-muted">👁️ {{ $post->views }} مشاهدة</small>
                     <small class="text-muted">| {{ $post->created_at->format('Y-m-d') }}</small>
                 </div>

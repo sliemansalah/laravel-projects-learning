@@ -40,6 +40,14 @@
                         </span>
                         | {{ $post->created_at->diffForHumans() }}
                     </p>
+                    @if($post->tags->count() > 0)
+                        <div class="mb-3">
+                            <strong>الوسوم:</strong>
+                            @foreach($post->tags as $tag)
+                                <span class="badge bg-secondary">{{ $tag->name }}</span>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 <div class="card-footer bg-transparent">
                     <a href="{{ route('posts.show', $post) }}" class="btn btn-sm btn-info">قراءة</a>
