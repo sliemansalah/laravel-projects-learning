@@ -151,4 +151,31 @@ public function byDate($year, $month)
 
     return view('posts.by-date', compact('posts', 'date'));
 }
+public function toggleBookmark(Post $post)
+{
+    $bookmarks = session()->get('bookmarks', []);
+
+    if (in_array($post->id, $bookmarks)) {
+        // إزالة من المفضلة
+        $bookmarks = array_diff($bookmarks, [$post->id]);
+        $message = 'تم الإزالة من المفضلة';
+    } else {
+        // إضافة للمفضلة
+        $bookmarks[] = $post->id;
+        $message = 'تم الإضافة للمفضلة';
+    }
+
+    session()->put('bookmarks', $bookmarks);
+
+    return back()->with('success', $message);
+}
+
+public function bookmarks()
+{
+    $bookmarkIds = session()->get('bookmarks', []);
+    $posts = Post::whereIn('id', $bookmarkIds)->latest()->paginate(10);
+
+    return view('posts.bookmarks', compact('posts'));
+}
+
 }

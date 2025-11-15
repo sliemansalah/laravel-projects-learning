@@ -14,3 +14,6 @@ Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name(
 
 Route::get('archive', [PostController::class, 'archive'])->name('posts.archive');
 Route::get('archive/{year}/{month}', [PostController::class, 'byDate'])->name('posts.by-date');
+
+Route::post('posts/{post}/bookmark', [PostController::class, 'toggleBookmark'])->name('posts.bookmark');
+Route::get('bookmarks', [PostController::class, 'bookmarks'])->name('posts.bookmarks');

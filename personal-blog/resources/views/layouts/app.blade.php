@@ -29,6 +29,14 @@
                       <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.archive') }}">📅 الأرشيف</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('posts.bookmarks') }}">
+                            ⭐ المفضلة
+                            @if(session()->has('bookmarks') && count(session('bookmarks')) > 0)
+                                <span class="badge bg-warning text-dark">{{ count(session('bookmarks')) }}</span>
+                            @endif
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -69,5 +77,30 @@
 
 .related-posts .card-title a:hover {
     color: #007bff;
+}
+
+/* تحسين زر المفضلة */
+.btn-outline-warning:hover {
+    color: #fff;
+}
+
+/* Badge المفضلة في Navbar */
+.navbar .badge {
+    position: relative;
+    top: -2px;
+    font-size: 0.7rem;
+}
+
+/* Animation عند الحفظ */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.btn-warning.saved {
+    animation: heartBeat 0.6s;
 }
 </style>

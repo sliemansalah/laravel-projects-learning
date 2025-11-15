@@ -43,6 +43,12 @@
             <div class="card-footer">
                 <a href="{{ route('posts.index') }}" class="btn btn-secondary">رجوع</a>
                 <a href="{{ route('posts.archive') }}" class="btn btn-info">📅 الأرشيف</a>
+                <form action="{{ route('posts.bookmark', $post) }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn {{ in_array($post->id, session()->get('bookmarks', [])) ? 'btn-warning' : 'btn-outline-warning' }}">
+                        {{ in_array($post->id, session()->get('bookmarks', [])) ? '★ محفوظ' : '☆ حفظ' }}
+                    </button>
+                </form>
                 <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">تعديل</a>
                 <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
                     @csrf
@@ -95,3 +101,19 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation عند النقر على زر المفضلة
+    document.querySelectorAll('form[action*="bookmark"] button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            this.classList.add('saved');
+            setTimeout(() => {
+                this.classList.remove('saved');
+            }, 600);
+        });
+    });
+});
+</script>
+@endpush
