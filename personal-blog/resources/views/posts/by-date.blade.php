@@ -1,53 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'جميع المقالات')
+@section('title', 'مقالات ' . $date->locale('ar')->isoFormat('MMMM YYYY'))
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>جميع المقالات</h1>
-    <a href="{{ route('posts.archive') }}" class="btn btn-info">📅 الأرشيف</a>
-    <a href="{{ route('posts.create') }}" class="btn btn-primary">+ مقال جديد</a>
+    <h1>
+        📅 مقالات {{ $date->locale('ar')->isoFormat('MMMM YYYY') }}
+        <span class="badge bg-secondary">{{ $posts->total() }}</span>
+    </h1>
+    <a href="{{ route('posts.archive') }}" class="btn btn-secondary">← عودة للأرشيف</a>
 </div>
-
-<form action="{{ route('posts.index') }}" method="GET" class="mb-4">
-    <div class="input-group">
-        <input type="text" name="search" class="form-control"
-               placeholder="ابحث في المقالات..." value="{{ request('search') }}">
-        <button class="btn btn-primary" type="submit">🔍 بحث</button>
-        @if(request('search'))
-            <a href="{{ route('posts.index') }}" class="btn btn-secondary">إلغاء</a>
-        @endif
-    </div>
-</form>
 
 @if($posts->count() > 0)
     <div class="row">
         @foreach($posts as $post)
         <div class="col-md-6 mb-4">
             <div class="card h-100">
-                @if($post->category)
-                <span class="badge bg-info">{{ $post->category->name }}</span>
-                @endif
-                <small>👁️ {{ $post->views }}</small>
                 @if($post->image)
                 <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}" style="height: 200px; object-fit: cover;">
                 @endif
                 <div class="card-body">
-                    <h5 class="card-title">{{ $post->title }}</h5>
+                    @if($post->category)
+                    <span class="badge bg-info">{{ $post->category->name }}</span>
+                    @endif
+                    <small>👁️ {{ $post->views }}</small>
+
+                    <h5 class="card-title mt-2">{{ $post->title }}</h5>
                     <p class="card-text">{!! Str::limit(strip_tags($post->content), 150) !!}</p>
                     <p class="text-muted small">
                         <span class="badge {{ $post->published ? 'bg-success' : 'bg-secondary' }}">
                             {{ $post->published ? 'منشور' : 'مسودة' }}
                         </span>
-                        | {{ $post->created_at->diffForHumans() }}
+                        | {{ $post->created_at->format('Y-m-d') }}
                     </p>
+
                     @if($post->tags->count() > 0)
-                        <div class="mb-3">
-                            <strong>الوسوم:</strong>
-                            @foreach($post->tags as $tag)
-                                <span class="badge bg-secondary">{{ $tag->name }}</span>
-                            @endforeach
-                        </div>
+                    <div class="mt-2">
+                        @foreach($post->tags->take(3) as $tag)
+                            <span class="badge bg-secondary">{{ $tag->name }}</span>
+                        @endforeach
+                    </div>
                     @endif
                 </div>
                 <div class="card-footer bg-transparent">
@@ -70,7 +62,7 @@
     </div>
 @else
     <div class="alert alert-info">
-        لا توجد مقالات حالياً. <a href="{{ route('posts.create') }}">أضف مقالك الأول!</a>
+        لا توجد مقالات في هذا الشهر.
     </div>
 @endif
 @endsection

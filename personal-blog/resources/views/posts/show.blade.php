@@ -39,6 +39,8 @@
 
             <div class="card-footer">
                 <a href="{{ route('posts.index') }}" class="btn btn-secondary">رجوع</a>
+                    <a href="{{ route('posts.archive') }}" class="btn btn-info">📅 الأرشيف</a>
+
                 <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">تعديل</a>
                 <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
                     @csrf

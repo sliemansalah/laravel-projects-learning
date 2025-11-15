@@ -26,6 +26,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.create') }}">مقال جديد</a>
                     </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('posts.archive') }}">📅 الأرشيف</a>
+                    </li>
                 </ul>
             </div>
         </div>

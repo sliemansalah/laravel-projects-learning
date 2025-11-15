@@ -129,4 +129,26 @@ class PostController extends Controller
         return redirect()->route('posts.index')
             ->with('success', 'تم حذف المقال بنجاح!');
     }
+    public function archive()
+{
+    $archives = Post::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
+        ->groupBy('year', 'month')
+        ->orderByDesc('year')
+        ->orderByDesc('month')
+        ->get();
+
+    return view('posts.archive', compact('archives'));
+}
+
+public function byDate($year, $month)
+{
+    $posts = Post::whereYear('created_at', $year)
+        ->whereMonth('created_at', $month)
+        ->latest()
+        ->paginate(10);
+
+    $date = \Carbon\Carbon::createFromDate($year, $month, 1);
+
+    return view('posts.by-date', compact('posts', 'date'));
+}
 }
