@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
-Route::get('/', [PostController::class, 'index'])->name('home');
-Route::resource('posts', PostController::class)->except(['index']);
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/', function () {
+    return redirect()->route('posts.index');
+});
+
+Route::resource('posts', PostController::class);

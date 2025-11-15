@@ -12,13 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id(); // معرف فريد
-            $table->string('title'); // عنوان مقال
-            $table->string('slug')->unique(); // رابط ودي
-            $table->text('excerpt'); // ملخص
-            $table->longText('content'); // محتوى
-            $table->string('image')->nullable(); // صورة المقال
-            $table->boolean('published')->default(false); // حالة النشر
+            $table->id();
+            $table->string('title');
+            $table->text('content');
+            $table->string('image')->nullable();
+            $table->boolean('published')->default(false);
             $table->timestamps();
         });
     }

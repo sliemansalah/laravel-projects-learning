@@ -3,24 +3,39 @@
 @section('title', $post->title)
 
 @section('content')
-    <article>
-        @if($post->image)
-            <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="post-image">
-        @endif
-
-        <h1 style="color: #667eea; margin-bottom: 1rem;">{{ $post->title }}</h1>
-
-        <div style="color: #999; margin-bottom: 2rem;">
-            <small>تم النشر: {{ $post->created_at->format('Y-m-d') }}</small>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            @if($post->image)
+            <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
+            @endif
+            <div class="card-body">
+                <h1 class="card-title">{{ $post->title }}</h1>
+                <p class="text-muted">
+                    <span class="badge {{ $post->published ? 'bg-success' : 'bg-secondary' }}">
+                        {{ $post->published ? 'منشور' : 'مسودة' }}
+                    </span>
+                    | نُشر {{ $post->created_at->format('Y-m-d') }}
+                    @if($post->updated_at != $post->created_at)
+                        | آخر تحديث {{ $post->updated_at->diffForHumans() }}
+                    @endif
+                </p>
+                <hr>
+                <div class="post-content">
+                    {!! nl2br(e($post->content)) !!}
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{{ route('posts.index') }}" class="btn btn-secondary">عودة للمقالات</a>
+                <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">تعديل</a>
+                <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('هل أنت متأكد من الحذف؟')">حذف</button>
+                </form>
+            </div>
         </div>
-
-        <div class="post-content">
-            {!! nl2br(e($post->content)) !!}
-        </div>
-
-        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #eee;">
-            <a href="{{ route('posts.index') }}" class="btn">← العودة للمقالات</a>
-            <a href="{{ route('posts.edit', $post) }}" class="btn">تعديل المقال</a>
-        </div>
-    </article>
+    </div>
+</div>
 @endsection
