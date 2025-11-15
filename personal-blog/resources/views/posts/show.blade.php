@@ -59,6 +59,72 @@
             </div>
         </div>
 
+        {{-- عرض التعليقات المعتمدة --}}
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>💬 التعليقات ({{ $post->approvedComments->count() }})</h5>
+    </div>
+    <div class="card-body">
+        @if($post->approvedComments->count() > 0)
+            @foreach($post->approvedComments as $comment)
+            <div class="mb-3 pb-3 border-bottom">
+                <div class="d-flex justify-content-between">
+                    <strong>{{ $comment->name }}</strong>
+                    <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                </div>
+                <p class="mt-2 mb-0">{{ $comment->comment }}</p>
+            </div>
+            @endforeach
+        @else
+            <p class="text-muted">لا توجد تعليقات بعد. كن أول من يعلق!</p>
+        @endif
+    </div>
+</div>
+
+{{-- نموذج إضافة تعليق --}}
+<div class="card mt-3">
+    <div class="card-header">
+        <h5>✍️ إضافة تعليق</h5>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('comments.store', $post) }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label">الاسم</label>
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                       value="{{ old('name') }}" required>
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">البريد الإلكتروني</label>
+                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                       value="{{ old('email') }}" required>
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">التعليق</label>
+                <textarea name="comment" rows="4" class="form-control @error('comment') is-invalid @enderror"
+                          required>{{ old('comment') }}</textarea>
+                @error('comment')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="alert alert-info small">
+                <i class="bi bi-info-circle"></i> سيتم مراجعة تعليقك قبل نشره
+            </div>
+
+            <button type="submit" class="btn btn-primary">إرسال التعليق</button>
+        </form>
+    </div>
+</div>
+
         {{-- المقالات ذات الصلة --}}
         @if($post->relatedPosts()->count() > 0)
         <div class="card mt-4 related-posts">

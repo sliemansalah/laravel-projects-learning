@@ -40,6 +40,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.statistics') }}">📊 الإحصائيات</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('comments.pending') }}">
+                            💬 التعليقات المعلقة
+                            @php
+                                $pendingCount = \App\Models\Comment::where('approved', false)->count();
+                            @endphp
+                            @if($pendingCount > 0)
+                                <span class="badge bg-danger">{{ $pendingCount }}</span>
+                            @endif
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
