@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('ayahs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('surah_id')->constrained()->onDelete('cascade');
+            $table->integer('number');
+            $table->text('text_arabic');
+            $table->text('text_uthmani');
+            $table->text('translation_en')->nullable();
+            $table->text('translation_ar')->nullable();
+            $table->text('tafseer')->nullable();
+            $table->string('audio_url')->nullable();
+            $table->timestamps();
+
+            $table->unique(['surah_id', 'number']);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('ayahs');
+    }
+};

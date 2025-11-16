@@ -1,17 +1,28 @@
 {
-    "$schema": "https://www.schemastore.org/package.json",
+    "name": "quran-memorization-frontend",
+    "version": "1.0.0",
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "vue": "^3.4.0",
+        "vue-router": "^4.2.5",
+        "pinia": "^2.1.7",
+        "axios": "^1.6.2",
+        "@vueuse/core": "^10.7.0",
+        "chart.js": "^4.4.0",
+        "vue-chartjs": "^5.3.0",
+        "lucide-vue-next": "^0.300.0"
     },
     "devDependencies": {
-        "@tailwindcss/vite": "^4.0.0",
-        "axios": "^1.11.0",
-        "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^2.0.0",
-        "tailwindcss": "^4.0.0",
-        "vite": "^7.0.7"
+        "@vitejs/plugin-vue": "^5.0.0",
+        "vite": "^5.0.0",
+        "tailwindcss": "^3.4.0",
+        "postcss": "^8.4.32",
+        "autoprefixer": "^10.4.16"
     }
 }

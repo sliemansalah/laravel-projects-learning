@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('surahs', function (Blueprint $table) {
             $table->id();
+            $table->integer('number')->unique();
+            $table->string('name_arabic');
+            $table->string('name_english');
+            $table->string('name_transliteration');
+            $table->integer('total_ayahs');
+            $table->enum('revelation_type', ['meccan', 'medinan']);
+            $table->integer('revelation_order')->nullable();
             $table->timestamps();
         });
     }
