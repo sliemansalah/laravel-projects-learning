@@ -1,0 +1,4 @@
+Route::middleware(['auth'])->group(function () {
+    Route::get('/system-info', [App\Http\Controllers\SystemInfoController::class, 'index'])
+        ->name('system-info');
+});
