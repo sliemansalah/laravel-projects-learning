@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            
             {{-- رسالة الترحيب --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900">
@@ -18,7 +18,7 @@
 
             {{-- بطاقات الإحصائيات --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-
+                
                 {{-- إجمالي المبيعات --}}
                 <div class="bg-blue-500 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-white">
@@ -77,9 +77,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <h3 class="text-xl font-bold mb-4">الوحدات الرئيسية</h3>
-
+                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
+                        
                         {{-- المحاسبة --}}
                         <a href="#" class="block p-6 bg-gray-50 hover:bg-gray-100 rounded-lg border-2 border-gray-200 hover:border-blue-500 transition">
                             <div class="text-4xl mb-3">📊</div>
