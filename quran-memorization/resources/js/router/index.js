@@ -30,6 +30,13 @@ const routes = [{
         meta: { requiresAuth: true }
     },
     {
+        path: '/memorize/:surahId/ayah/:ayahId',
+        name: 'AyahMemorize',
+        component: () =>
+            import ('@/views/AyahMemorize.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
         path: '/review',
         name: 'Review',
         component: () =>

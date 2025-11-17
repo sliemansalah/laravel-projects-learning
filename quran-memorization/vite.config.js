@@ -1,29 +1,27 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { fileURLToPath, URL } from 'node:url'
+import laravel from 'laravel-vite-plugin'
+import path from 'path'
 
 export default defineConfig({
-    plugins: [vue()],
+    plugins: [
+        laravel({
+            input: ['resources/js/main.js'],
+            refresh: true,
+        }),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
+    ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./resources/js',
-                import.meta.url))
-        }
-    },
-    server: {
-        port: 5173,
-        proxy: {
-            '/api': {
-                target: 'http://localhost:8000',
-                changeOrigin: true,
-            }
-        }
-    },
-    build: {
-        outDir: 'public/build',
-        manifest: true,
-        rollupOptions: {
-            input: 'resources/js/main.js'
+            '@': path.resolve(__dirname, './resources/js'),
+            'vue': 'vue/dist/vue.esm-bundler.js'
         }
     }
 })

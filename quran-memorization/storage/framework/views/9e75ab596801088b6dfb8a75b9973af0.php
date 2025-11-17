@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
-    @vite(['resources/js/main.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/main.js']); ?>
 </head>
 <body>
     <div id="app"></div>
 </body>
 </html>
+<?php /**PATH D:\laravel-projects\laravel-projects-learning\quran-memorization\resources\views/app.blade.php ENDPATH**/ ?>
