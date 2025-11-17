@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 
                 {{-- إجمالي المبيعات --}}
-                <div class="bg-gradient-to-br from-blue-500 to-blue-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="bg-gradient-to-br from-teal-500 to-teal-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
                     <div class="p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
@@ -34,7 +34,7 @@
                 </div>
 
                 {{-- عدد الفواتير --}}
-                <div class="bg-gradient-to-br from-green-500 to-green-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="bg-gradient-to-br from-red-400 to-red-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
                     <div class="p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
@@ -48,7 +48,7 @@
                 </div>
 
                 {{-- عدد العملاء --}}
-                <div class="bg-gradient-to-br from-purple-500 to-purple-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="bg-gradient-to-br from-pink-500 to-pink-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
                     <div class="p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
@@ -62,7 +62,7 @@
                 </div>
 
                 {{-- المخزون --}}
-                <div class="bg-gradient-to-br from-orange-500 to-orange-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="bg-gradient-to-br from-amber-500 to-amber-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
                     <div class="p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
