@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class SystemInfoController extends Controller
+{
+    public function index()
+    {
+        $systemInfo = [
+            'system_name' => 'نظام ERP المتكامل',
+            'version' => '1.0.0',
+            'laravel_version' => app()->version(),
+            'php_version' => PHP_VERSION,
+            'database' => config('database.default'),
+        ];
+
+        return view('system-info', compact('systemInfo'));
+    }
+}
