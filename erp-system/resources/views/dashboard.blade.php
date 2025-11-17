@@ -75,6 +75,20 @@
                     </div>
                 </div>
 
+                 {{-- عدد الموردين --}}
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 overflow-hidden shadow-lg sm:rounded-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="p-6 text-white">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <p class="text-sm opacity-90 mb-1">الموردين</p>
+                                <p class="text-3xl font-bold mt-2">0</p>
+                                <p class="text-xs opacity-75 mt-1">مورد</p>
+                            </div>
+                            <div class="text-5xl opacity-30">📊</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             {{-- الوحدات الرئيسية --}}

@@ -34,6 +34,9 @@
                     <x-nav-link :href="route('system-info')" :active="request()->routeIs('system-info')">
                         {{ __('معلومات النظام') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
+                        {{ __('حول النظام') }}
+                    </x-nav-link>
                 </div>
                 <section></section>
             </div>
