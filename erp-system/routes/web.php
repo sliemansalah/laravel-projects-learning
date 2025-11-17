@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,5 +21,10 @@ Route::middleware('auth')->group(function () {
         ->name('system-info');
     Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])
         ->name('about');
+
+    // Routes الشركات
+    Route::resource('companies', CompanyController::class);
+    Route::post('companies/{company}/switch', [CompanyController::class, 'switchCompany'])
+        ->name('companies.switch');
 });
 require __DIR__.'/auth.php';

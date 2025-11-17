@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('لوحة التحكم') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')">
+                        {{ __('الشركات') }}
+                    </x-nav-link>
 
                     <x-nav-link href="#" :active="false">
                         {{ __('المحاسبة') }}

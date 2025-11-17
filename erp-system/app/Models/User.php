@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id',  // أضف هذا
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,5 +46,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // المستخدم ينتمي إلى شركة
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

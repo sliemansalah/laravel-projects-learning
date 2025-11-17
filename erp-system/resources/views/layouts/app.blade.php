@@ -21,11 +21,22 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+               <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            {{ $header }}
+                        </div>
+
+                        @if(session('company_name'))
+                            <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg">
+                                <span class="text-sm">الشركة النشطة:</span>
+                                <span class="font-bold">{{ session('company_name') }}</span>
+                            </div>
+                        @endif
                     </div>
-                </header>
+                </div>
+            </header>
             @endisset
 
             <!-- Page Content -->
