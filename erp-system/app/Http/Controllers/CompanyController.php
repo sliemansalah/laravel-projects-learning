@@ -32,15 +32,53 @@ class CompanyController extends Controller
             'city' => 'required|string',
             'phone' => 'required|string',
             'email' => 'required|email',
+            'website' => 'nullable|string',
+            'branches' => 'required|array|min:1',
+            'branches.*.name' => 'required|string|max:255',
+            'branches.*.code' => 'required|string|max:50',
+            'branches.*.address' => 'required|string',
+            'branches.*.city' => 'required|string',
+            'branches.*.phone' => 'required|string',
+            'branches.*.manager_name' => 'nullable|string|max:255',
+            'branches.*.manager_phone' => 'nullable|string',
+            'branches.*.is_main' => 'required|boolean',
         ]);
 
         $validated['country'] = 'SA';
         $validated['is_active'] = true;
 
-        Company::create($validated);
+        // حفظ الشركة
+        $company = Company::create([
+            'name' => $validated['name'],
+            'name_en' => $validated['name_en'],
+            'tax_number' => $validated['tax_number'],
+            'commercial_register' => $validated['commercial_register'],
+            'address' => $validated['address'],
+            'city' => $validated['city'],
+            'country' => $validated['country'],
+            'phone' => $validated['phone'],
+            'email' => $validated['email'],
+            'website' => $validated['website'] ?? null,
+            'is_active' => $validated['is_active'],
+        ]);
+
+        // حفظ الفروع
+        foreach ($validated['branches'] as $branchData) {
+            $company->branches()->create([
+                'name' => $branchData['name'],
+                'code' => $branchData['code'],
+                'address' => $branchData['address'],
+                'city' => $branchData['city'],
+                'phone' => $branchData['phone'],
+                'manager_name' => $branchData['manager_name'] ?? null,
+                'manager_phone' => $branchData['manager_phone'] ?? null,
+                'is_main' => $branchData['is_main'],
+                'is_active' => true,
+            ]);
+        }
 
         return redirect()->route('companies.index')
-            ->with('success', 'تم إضافة الشركة بنجاح');
+            ->with('success', 'تم إضافة الشركة بنجاح مع ' . count($validated['branches']) . ' فرع');
     }
 
     // عرض شركة محددة

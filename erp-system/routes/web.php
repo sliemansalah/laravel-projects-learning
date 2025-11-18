@@ -27,4 +27,5 @@ Route::middleware('auth')->group(function () {
     Route::post('companies/{company}/switch', [CompanyController::class, 'switchCompany'])
         ->name('companies.switch');
 });
+
 require __DIR__.'/auth.php';
