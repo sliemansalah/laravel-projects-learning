@@ -9,10 +9,16 @@
         </div>
         <div class="flex items-center gap-3">
           <router-link
+            to="/memorization-practice"
+            class="px-5 py-2.5 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-lg hover:from-teal-600 hover:to-cyan-600 transition shadow-lg hover:shadow-xl font-semibold text-sm flex items-center gap-2"
+          >
+            📖 تدريب الحفظ
+          </router-link>
+          <router-link
             to="/drag-drop-test"
             class="px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition shadow-lg hover:shadow-xl font-semibold text-sm flex items-center gap-2"
           >
-            🧩 اختبار السحب والإفلات
+            🧩 اختبار السحب
           </router-link>
           <div class="text-5xl">🎯</div>
         </div>
