@@ -7,7 +7,15 @@
           <h1 class="text-3xl font-bold text-gray-800">إدارة الحفظ والمراجعة</h1>
           <p class="text-gray-600 mt-1">تتبع تقدمك في حفظ القرآن الكريم</p>
         </div>
-        <div class="text-5xl">🎯</div>
+        <div class="flex items-center gap-3">
+          <router-link
+            to="/drag-drop-test"
+            class="px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition shadow-lg hover:shadow-xl font-semibold text-sm flex items-center gap-2"
+          >
+            🧩 اختبار السحب والإفلات
+          </router-link>
+          <div class="text-5xl">🎯</div>
+        </div>
       </div>
     </div>
 
