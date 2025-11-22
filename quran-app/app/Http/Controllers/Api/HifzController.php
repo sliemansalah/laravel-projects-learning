@@ -44,6 +44,9 @@ class HifzController extends Controller
             ]
         );
 
+        // إعادة تحميل البيانات مع العلاقة
+        $userHifz->load('surah');
+
         return response()->json([
             'success' => true,
             'message' => 'تم بدء الحفظ بنجاح',
