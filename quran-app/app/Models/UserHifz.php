@@ -17,12 +17,14 @@ class UserHifz extends Model
         'memorized_count',
         'reviewed_count',
         'start_date',
-        'completion_date'
+        'completion_date',
+        'last_reviewed_at'
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'completion_date' => 'date',
+        'last_reviewed_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

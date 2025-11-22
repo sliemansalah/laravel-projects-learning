@@ -83,11 +83,23 @@ class HifzController extends Controller
             ], 404);
         }
 
-        $hifz->update($validated);
+        // تحضير البيانات للتحديث
+        $updateData = $validated;
 
         if ($validated['status'] === 'completed') {
-            $hifz->update(['completion_date' => now()]);
+            $updateData['completion_date'] = now();
         }
+
+        // إذا تم تحديث reviewed_count، نحدث last_reviewed_at
+        if (isset($validated['reviewed_count']) && $validated['reviewed_count'] > ($hifz->reviewed_count ?? 0)) {
+            $updateData['last_reviewed_at'] = now();
+        }
+
+        // تحديث البيانات دفعة واحدة
+        $hifz->update($updateData);
+
+        // إعادة تحميل البيانات مع العلاقة
+        $hifz->load('surah');
 
         return response()->json([
             'success' => true,
