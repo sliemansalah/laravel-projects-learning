@@ -286,12 +286,32 @@ const selectHifz = async (hifz) => {
 
   try {
     // Fetch ayahs for this hifz range
-    const response = await axios.get(`/api/quran/surah/${hifz.surah.number}/ayahs`)
+    const surahId = hifz.surah?.id || hifz.surah_id
+    console.log('Loading test for surah ID:', surahId, 'Range:', hifz.start_ayah, '-', hifz.end_ayah)
+
+    const response = await axios.get(`/quran/surah/${surahId}/ayahs`)
+    console.log('API Response:', response.data)
+
     const allAyahs = response.data.data || response.data
+
+    if (!allAyahs || allAyahs.length === 0) {
+      showFeedback('لا توجد آيات متاحة لهذه السورة', 'error')
+      loading.value = false
+      return
+    }
+
     const ayahs = allAyahs.filter(ayah =>
       ayah.number >= hifz.start_ayah &&
       ayah.number <= hifz.end_ayah
     )
+
+    console.log('Filtered ayahs:', ayahs.length)
+
+    if (ayahs.length === 0) {
+      showFeedback('لا توجد آيات في النطاق المحدد', 'error')
+      loading.value = false
+      return
+    }
 
     // Generate questions (random 5 ayahs or all if less than 5)
     const numQuestions = Math.min(5, ayahs.length)
@@ -300,9 +320,12 @@ const selectHifz = async (hifz) => {
     questions.value = selectedAyahs.map(ayah => generateQuestion(ayah))
     currentQuestionIndex.value = 0
     score.value = 0
+
+    console.log('Generated', questions.value.length, 'questions')
   } catch (error) {
     console.error('Error loading test:', error)
-    showFeedback('حدث خطأ في تحميل الاختبار', 'error')
+    console.error('Error details:', error.response?.data)
+    showFeedback(`حدث خطأ في تحميل الاختبار: ${error.response?.data?.message || error.message}`, 'error')
   } finally {
     loading.value = false
   }
@@ -353,7 +376,7 @@ const generateQuestion = (ayah) => {
   ])
 
   return {
-    ayahNumber: ayah.numberInSurah,
+    ayahNumber: ayah.number,
     parts,
     availableWords,
     originalText: ayah.text

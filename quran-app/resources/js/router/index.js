@@ -9,6 +9,7 @@ import SurahDetail from '../SurahDetail.vue'
 import Hifz from '../Hifz.vue'
 import Statistics from '../Statistics.vue'
 import DragDropTest from '../DragDropTest.vue'
+import MemorizationPractice from '../MemorizationPractice.vue'
 
 const routes = [{
         path: '/login',
@@ -56,6 +57,12 @@ const routes = [{
         path: '/drag-drop-test',
         name: 'DragDropTest',
         component: DragDropTest,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/memorization-practice',
+        name: 'MemorizationPractice',
+        component: MemorizationPractice,
         meta: { requiresAuth: true }
     }
 ]
