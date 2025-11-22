@@ -129,18 +129,65 @@ class QuranSeeder extends Seeder
             ['name' => 'النصر', 'name_en' => 'An-Nasr', 'number' => 110, 'ayah_count' => 3, 'revelation_place' => 'مدني', 'juz_number' => 30],
             ['name' => 'المسد', 'name_en' => 'Al-Masad', 'number' => 111, 'ayah_count' => 5, 'revelation_place' => 'مكي', 'juz_number' => 30],
             ['name' => 'الإخلاص', 'name_en' => 'Al-Ikhlas', 'number' => 112, 'ayah_count' => 4, 'revelation_place' => 'مكي', 'juz_number' => 30],
+            ['name' => 'الفلق', 'name_en' => 'Al-Falaq', 'number' => 113, 'ayah_count' => 5, 'revelation_place' => 'مكي', 'juz_number' => 30],
+            ['name' => 'الناس', 'name_en' => 'An-Nas', 'number' => 114, 'ayah_count' => 6, 'revelation_place' => 'مكي', 'juz_number' => 30],
          ];
         foreach ($surahs as $surahData) {
             $surah = Surah::create($surahData);
 
-            // يمكنك هنا إضافة الآيات
-            // $this->seedAyahs($surah);
+            // إضافة الآيات لكل سورة
+            $this->seedAyahs($surah);
+
+            $this->command->info("تم إضافة سورة {$surah->name} مع {$surah->ayah_count} آية");
         }
     }
 
     // دالة مساعدة لإضافة الآيات
     private function seedAyahs(Surah $surah): void
     {
-        // سيتم ملء هذا من مصدر خارجي (API أو JSON)
+        try {
+            // جلب البيانات من API
+            // نستخدم api.alquran.cloud للحصول على النص العربي
+            $response = Http::timeout(30)->get("https://api.alquran.cloud/v1/surah/{$surah->number}");
+
+            if (!$response->successful()) {
+                $this->command->warn("فشل في جلب بيانات سورة {$surah->name}");
+                return;
+            }
+
+            $data = $response->json();
+
+            if (!isset($data['data']['ayahs'])) {
+                $this->command->warn("لا توجد آيات في البيانات المستلمة لسورة {$surah->name}");
+                return;
+            }
+
+            $ayahs = $data['data']['ayahs'];
+
+            foreach ($ayahs as $ayahData) {
+                Ayah::create([
+                    'surah_id' => $surah->id,
+                    'number' => $ayahData['numberInSurah'],
+                    'text' => $ayahData['text'],
+                    'transliteration' => null, // يمكن إضافته من مصدر آخر
+                    'translation' => null, // يمكن إضافته من مصدر آخر
+                    'page_number' => $ayahData['page'] ?? null,
+                    'line_number' => null,
+                    'juz_number' => $ayahData['juz'] ?? null,
+                    'hizb' => $ayahData['hizbQuarter'] ?? null,
+                    'quarter' => null,
+                ]);
+            }
+
+            // إضافة تأخير صغير لتجنب تحميل API بشكل زائد
+            usleep(200000); // 200ms delay
+
+        } catch (\Exception $e) {
+            $this->command->error("خطأ في جلب بيانات سورة {$surah->name}: " . $e->getMessage());
+            Log::error("Error seeding ayahs for surah {$surah->name}", [
+                'error' => $e->getMessage(),
+                'surah_id' => $surah->id
+            ]);
+        }
     }
 }

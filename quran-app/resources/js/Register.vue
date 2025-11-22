@@ -84,7 +84,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '../stores/auth'
+import { useAuthStore } from './store/auth'
 import { useRouter } from 'vue-router'
 
 const form = ref({

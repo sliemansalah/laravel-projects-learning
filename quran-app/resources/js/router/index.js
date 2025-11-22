@@ -1,13 +1,13 @@
 // resources/js/router/index.js
 
-import { useAuthStore } from '../stores/auth'
-import Login from '../pages/Login.vue'
-import Register from '../pages/Register.vue'
-import Dashboard from '../pages/Dashboard.vue'
-import Surahs from '../pages/Surahs.vue'
-import SurahDetail from '../pages/SurahDetail.vue'
-import Hifz from '../pages/Hifz.vue'
-import Statistics from '../pages/Statistics.vue'
+import { useAuthStore } from '../store/auth'
+import Login from '../Login.vue'
+import Register from '../Register.vue'
+import Dashboard from '../Dashboard.vue'
+import Surahs from '../Surahs.vue'
+import SurahDetail from '../SurahDetail.vue'
+import Hifz from '../Hifz.vue'
+import Statistics from '../Statistics.vue'
 
 const routes = [{
         path: '/login',
@@ -55,7 +55,7 @@ const routes = [{
 
 // Navigation Guards
 routes.forEach(route => {
-    if (route.meta ? .requiresAuth) {
+    if (route.meta ?.requiresAuth) {
         route.beforeEnter = (to, from, next) => {
             const authStore = useAuthStore()
             if (!authStore.isAuthenticated) {
@@ -65,7 +65,7 @@ routes.forEach(route => {
             }
         }
     }
-    if (route.meta ? .requiresGuest) {
+    if (route.meta ?.requiresGuest) {
         route.beforeEnter = (to, from, next) => {
             const authStore = useAuthStore()
             if (authStore.isAuthenticated) {

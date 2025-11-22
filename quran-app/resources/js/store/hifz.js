@@ -35,7 +35,7 @@ export const useHifzStore = defineStore('hifz', () => {
             userHifz.value.push(response.data.data)
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في بدء الحفظ'
+            error.value = err.response ?.data ?.message || 'خطأ في بدء الحفظ'
             throw err
         } finally {
             loading.value = false
@@ -50,7 +50,7 @@ export const useHifzStore = defineStore('hifz', () => {
             userHifz.value = response.data.data
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب بيانات الحفظ'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب بيانات الحفظ'
             throw err
         } finally {
             loading.value = false
@@ -72,7 +72,7 @@ export const useHifzStore = defineStore('hifz', () => {
             }
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في تحديث الحالة'
+            error.value = err.response ?.data ?.message || 'خطأ في تحديث الحالة'
             throw err
         } finally {
             loading.value = false
@@ -94,7 +94,7 @@ export const useHifzStore = defineStore('hifz', () => {
             }
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في حفظ الصفحة'
+            error.value = err.response ?.data ?.message || 'خطأ في حفظ الصفحة'
             throw err
         } finally {
             loading.value = false
@@ -114,7 +114,7 @@ export const useHifzStore = defineStore('hifz', () => {
             }
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في تسجيل المراجعة'
+            error.value = err.response ?.data ?.message || 'خطأ في تسجيل المراجعة'
             throw err
         } finally {
             loading.value = false
@@ -129,7 +129,7 @@ export const useHifzStore = defineStore('hifz', () => {
             userPages.value = response.data.data
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب الصفحات'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب الصفحات'
             throw err
         } finally {
             loading.value = false
@@ -144,7 +144,7 @@ export const useHifzStore = defineStore('hifz', () => {
             stats.value = response.data.data
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب الإحصائيات'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب الإحصائيات'
             throw err
         } finally {
             loading.value = false

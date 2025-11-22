@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token.value}`
             return response.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'حدث خطأ'
+            error.value = err.response ?.data ?.message || 'حدث خطأ'
             throw err
         } finally {
             loading.value = false
@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token.value}`
             return response.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'بيانات الدخول غير صحيحة'
+            error.value = err.response ?.data ?.message || 'بيانات الدخول غير صحيحة'
             throw err
         } finally {
             loading.value = false

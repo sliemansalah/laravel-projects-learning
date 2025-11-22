@@ -21,7 +21,7 @@ export const useQuranStore = defineStore('quran', () => {
             surahs.value = response.data.data
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب السور'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب السور'
             throw err
         } finally {
             loading.value = false
@@ -37,7 +37,7 @@ export const useQuranStore = defineStore('quran', () => {
             ayahs.value = response.data.data.ayahs || []
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب السورة'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب السورة'
             throw err
         } finally {
             loading.value = false
@@ -53,7 +53,7 @@ export const useQuranStore = defineStore('quran', () => {
             ayahs.value = response.data.data.ayahs || []
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب السورة'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب السورة'
             throw err
         } finally {
             loading.value = false
@@ -68,7 +68,7 @@ export const useQuranStore = defineStore('quran', () => {
             ayahs.value = response.data.data
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب الآيات'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب الآيات'
             throw err
         } finally {
             loading.value = false
@@ -82,7 +82,7 @@ export const useQuranStore = defineStore('quran', () => {
             const response = await axios.get(`/quran/surahs/search?q=${query}`)
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في البحث'
+            error.value = err.response ?.data ?.message || 'خطأ في البحث'
             throw err
         } finally {
             loading.value = false
@@ -96,7 +96,7 @@ export const useQuranStore = defineStore('quran', () => {
             const response = await axios.get(`/quran/ayahs/search?q=${query}`)
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في البحث'
+            error.value = err.response ?.data ?.message || 'خطأ في البحث'
             throw err
         } finally {
             loading.value = false
@@ -111,7 +111,7 @@ export const useQuranStore = defineStore('quran', () => {
             ayahs.value = response.data.data
             return response.data.data
         } catch (err) {
-            error.value = err.response ? .data ? .message || 'خطأ في جلب الصفحة'
+            error.value = err.response ?.data ?.message || 'خطأ في جلب الصفحة'
             throw err
         } finally {
             loading.value = false

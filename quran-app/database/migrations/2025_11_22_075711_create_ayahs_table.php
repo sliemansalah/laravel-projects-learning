@@ -16,10 +16,10 @@ return new class extends Migration
             $table->longText('text'); // نص الآية
             $table->string('transliteration')->nullable(); // التشكيل
             $table->longText('translation')->nullable(); // الترجمة
-            $table->integer('page_number'); // رقم الصفحة
-            $table->integer('line_number'); // رقم السطر
-            $table->integer('juz_number'); // رقم الجزء
-            $table->string('hizb'); // الحزب
+            $table->integer('page_number')->nullable(); // رقم الصفحة
+            $table->integer('line_number')->nullable(); // رقم السطر
+            $table->integer('juz_number')->nullable(); // رقم الجزء
+            $table->string('hizb')->nullable(); // الحزب
             $table->string('quarter')->nullable(); // الربع
             $table->timestamps();
 
